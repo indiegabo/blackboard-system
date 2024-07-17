@@ -1,0 +1,29 @@
+namespace IndieGabo.HandyBlackboard
+{
+    public enum BlackboardValueType
+    {
+        Bool,
+        String,
+        Int,
+        Float,
+        Object,
+        Vector2,
+        Vector3,
+        Color,
+        Gradient,
+        Curve,
+        LayerMask,
+        Tag,
+        Rect,
+        Bounds,
+        Long,
+        Double,
+        Vector2Int,
+        Vector3Int,
+        RectInt,
+        Hash128,
+        Vector4,
+        Mask,
+        Layer,
+    }
+}
