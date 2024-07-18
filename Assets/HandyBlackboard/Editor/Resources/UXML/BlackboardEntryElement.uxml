@@ -1,0 +1,14 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="True">
+    <Style src="project://database/Assets/HandyBlackboard/Editor/Resources/USS/Blackboard_style.uss?fileID=7433441132597879392&amp;guid=50ec5fbc9f60d3d4fa5c1cd50acbf644&amp;type=3#Blackboard_style" />
+    <ui:VisualElement name="container-main" style="flex-grow: 0; flex-direction: row;">
+        <ui:VisualElement name="container-key" class="entry-field-container" style="flex-grow: 0.33; flex-shrink: 0; max-width: 25%;">
+            <ui:TextField picking-mode="Ignore" name="field-key" binding-path="keyName" readonly="true" />
+        </ui:VisualElement>
+        <ui:VisualElement name="container-type" class="entry-field-container" style="flex-shrink: 0; flex-grow: 0.33; max-width: 25%;">
+            <ui:EnumField type="IndieGabo.HandyBlackboard.BlackboardValueType, HandyBlackboard.Runtime" name="field-type" binding-path="valueType" focusable="true" />
+        </ui:VisualElement>
+        <ui:VisualElement name="container-value" class="entry-field-container" style="flex-grow: 0.33; flex-shrink: 0; max-width: 50%;">
+            <uie:PropertyField name="field-value" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

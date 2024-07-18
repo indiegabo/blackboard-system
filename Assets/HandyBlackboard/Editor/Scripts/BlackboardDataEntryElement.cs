@@ -54,197 +54,34 @@ namespace IndieGabo.HandyBlackboard.Editor
         {
             VisualElement fieldElement = type switch
             {
-                BlackboardValueType.Bool => GenerateBoolField(),
-                BlackboardValueType.String => GenerateStringField(),
-                BlackboardValueType.Int => GenerateIntField(),
-                BlackboardValueType.Float => GenerateFloatField(),
-                BlackboardValueType.Object => GenerateObjectField(),
-                BlackboardValueType.Vector2 => GenerateVector2Field(),
-                BlackboardValueType.Vector3 => GenerateVector3Field(),
-                BlackboardValueType.Color => GenerateColorField(),
-                BlackboardValueType.Gradient => GenerateGradientField(),
-                BlackboardValueType.Curve => GenerateCurveField(),
-                BlackboardValueType.LayerMask => GenerateLayerMaskField(),
-                BlackboardValueType.Tag => GenerateTagField(),
-                BlackboardValueType.Rect => GenerateRectField(),
-                BlackboardValueType.Bounds => GenerateBoundsField(),
-                BlackboardValueType.Long => GenerateLongField(),
-                BlackboardValueType.Double => GenerateDoubleField(),
-                BlackboardValueType.Vector2Int => GenerateVector2IntField(),
-                BlackboardValueType.Vector3Int => GenerateVector3IntField(),
-                BlackboardValueType.RectInt => GenerateRectIntField(),
-                BlackboardValueType.Hash128 => GenerateHash128Field(),
-                BlackboardValueType.Vector4 => GenerateVector4Field(),
-                BlackboardValueType.Mask => GenerateMaskField(),
-                BlackboardValueType.Layer => GenerateLayerField(),
+                BlackboardValueType.Bool => ValueElements.GenerateBoolField(_entry.value.boolValue, newValue => _entry.value.boolValue = newValue),
+                BlackboardValueType.String => ValueElements.GenerateStringField(_entry.value.stringValue, newValue => _entry.value.stringValue = newValue),
+                BlackboardValueType.Int => ValueElements.GenerateIntField(_entry.value.intValue, newValue => _entry.value.intValue = newValue),
+                BlackboardValueType.Float => ValueElements.GenerateFloatField(_entry.value.floatValue, newValue => _entry.value.floatValue = newValue),
+                BlackboardValueType.Object => ValueElements.GenerateObjectField(_entry.value.objectValue, newValue => _entry.value.objectValue = newValue),
+                BlackboardValueType.Transform => ValueElements.GenerateTransformField(_entry.value.transformValue, newValue => _entry.value.transformValue = newValue),
+                BlackboardValueType.Vector2 => ValueElements.GenerateVector2Field(_entry.value.vector2Value, newValue => _entry.value.vector2Value = newValue),
+                BlackboardValueType.Vector3 => ValueElements.GenerateVector3Field(_entry.value.vector3Value, newValue => _entry.value.vector3Value = newValue),
+                BlackboardValueType.Color => ValueElements.GenerateColorField(_entry.value.colorValue, newValue => _entry.value.colorValue = newValue),
+                BlackboardValueType.Gradient => ValueElements.GenerateGradientField(_entry.value.gradientValue, newValue => _entry.value.gradientValue = newValue),
+                BlackboardValueType.Curve => ValueElements.GenerateCurveField(_entry.value.curveValue, newValue => _entry.value.curveValue = newValue),
+                BlackboardValueType.LayerMask => ValueElements.GenerateLayerMaskField(_entry.value.layerMaskValue, newValue => _entry.value.layerMaskValue = newValue),
+                BlackboardValueType.Tag => ValueElements.GenerateTagField(_entry.value.tagValue, newValue => _entry.value.tagValue = newValue),
+                BlackboardValueType.Rect => ValueElements.GenerateRectField(_entry.value.rectValue, newValue => _entry.value.rectValue = newValue),
+                BlackboardValueType.Bounds => ValueElements.GenerateBoundsField(_entry.value.boundsValue, newValue => _entry.value.boundsValue = newValue),
+                BlackboardValueType.Long => ValueElements.GenerateLongField(_entry.value.longValue, newValue => _entry.value.longValue = newValue),
+                BlackboardValueType.Double => ValueElements.GenerateDoubleField(_entry.value.doubleValue, newValue => _entry.value.doubleValue = newValue),
+                BlackboardValueType.Vector2Int => ValueElements.GenerateVector2IntField(_entry.value.vector2IntValue, newValue => _entry.value.vector2IntValue = newValue),
+                BlackboardValueType.Vector3Int => ValueElements.GenerateVector3IntField(_entry.value.vector3IntValue, newValue => _entry.value.vector3IntValue = newValue),
+                BlackboardValueType.RectInt => ValueElements.GenerateRectIntField(_entry.value.rectIntValue, newValue => _entry.value.rectIntValue = newValue),
+                BlackboardValueType.Hash128 => ValueElements.GenerateHash128Field(_entry.value.hash128Value, newValue => _entry.value.hash128Value = newValue),
+                BlackboardValueType.Vector4 => ValueElements.GenerateVector4Field(_entry.value.vector4Value, newValue => _entry.value.vector4Value = newValue),
+                BlackboardValueType.Mask => ValueElements.GenerateMaskField(_entry.value.maskValue, newValue => _entry.value.maskValue = newValue),
+                BlackboardValueType.Layer => ValueElements.GenerateLayerField(_entry.value.layerValue, newValue => _entry.value.layerValue = newValue),
                 _ => throw new System.NotSupportedException($"Value type {type} is not supported")
             };
 
             SetValueField(fieldElement);
-        }
-
-        private Toggle GenerateBoolField()
-        {
-            Toggle toggle = new() { value = _entry.value.boolValue };
-            toggle.RegisterValueChangedCallback(evt => _entry.value.boolValue = evt.newValue);
-            return toggle;
-        }
-
-        private TextField GenerateStringField()
-        {
-            TextField textField = new() { value = _entry.value.stringValue };
-            textField.RegisterValueChangedCallback(evt => _entry.value.stringValue = evt.newValue);
-            return textField;
-        }
-
-        private IntegerField GenerateIntField()
-        {
-            IntegerField intField = new() { value = _entry.value.intValue };
-            intField.RegisterValueChangedCallback(evt => _entry.value.intValue = evt.newValue);
-            return intField;
-        }
-
-        private FloatField GenerateFloatField()
-        {
-            FloatField floatField = new() { value = _entry.value.floatValue };
-            floatField.RegisterValueChangedCallback(evt => _entry.value.floatValue = evt.newValue);
-            return floatField;
-        }
-
-        private ObjectField GenerateObjectField()
-        {
-            ObjectField objectField = new() { value = _entry.value.objectValue };
-            objectField.RegisterValueChangedCallback(evt =>
-            {
-                _entry.value.objectValue = evt.newValue;
-            });
-            return objectField;
-        }
-
-        private Vector2Field GenerateVector2Field()
-        {
-            Vector2Field vector2Field = new() { value = _entry.value.vector2Value };
-            vector2Field.RegisterValueChangedCallback(evt => _entry.value.vector2Value = evt.newValue);
-            return vector2Field;
-        }
-
-        private Vector3Field GenerateVector3Field()
-        {
-            Vector3Field vector3Field = new() { value = _entry.value.vector3Value };
-            vector3Field.RegisterValueChangedCallback(evt => _entry.value.vector3Value = evt.newValue);
-            return vector3Field;
-        }
-
-        private ColorField GenerateColorField()
-        {
-            ColorField colorField = new() { value = _entry.value.colorValue };
-            colorField.RegisterValueChangedCallback(evt => _entry.value.colorValue = evt.newValue);
-            return colorField;
-        }
-
-        private GradientField GenerateGradientField()
-        {
-            GradientField gradientField = new() { value = _entry.value.gradientValue };
-            gradientField.RegisterValueChangedCallback(evt => _entry.value.gradientValue = evt.newValue);
-            return gradientField;
-        }
-
-        private CurveField GenerateCurveField()
-        {
-            CurveField curveField = new() { value = _entry.value.curveValue };
-            curveField.RegisterValueChangedCallback(evt => _entry.value.curveValue = evt.newValue);
-            return curveField;
-        }
-
-        private LayerMaskField GenerateLayerMaskField()
-        {
-            LayerMaskField layerMaskField = new() { value = _entry.value.layerMaskValue };
-            layerMaskField.RegisterValueChangedCallback(evt => _entry.value.layerMaskValue = evt.newValue);
-            return layerMaskField;
-        }
-
-        private TagField GenerateTagField()
-        {
-            TagField tagField = new() { value = _entry.value.tagValue };
-            tagField.RegisterValueChangedCallback(evt => _entry.value.tagValue = evt.newValue);
-            return tagField;
-        }
-
-        private RectField GenerateRectField()
-        {
-            RectField rectField = new() { value = _entry.value.rectValue };
-            rectField.RegisterValueChangedCallback(evt => _entry.value.rectValue = evt.newValue);
-            return rectField;
-        }
-
-        private BoundsField GenerateBoundsField()
-        {
-            BoundsField boundsField = new() { value = _entry.value.boundsValue };
-            boundsField.RegisterValueChangedCallback(evt => _entry.value.boundsValue = evt.newValue);
-            return boundsField;
-        }
-
-        private LongField GenerateLongField()
-        {
-            LongField longField = new() { value = _entry.value.longValue };
-            longField.RegisterValueChangedCallback(evt => _entry.value.longValue = evt.newValue);
-            return longField;
-        }
-
-        private DoubleField GenerateDoubleField()
-        {
-            DoubleField doubleField = new() { value = _entry.value.doubleValue };
-            doubleField.RegisterValueChangedCallback(evt => _entry.value.doubleValue = evt.newValue);
-            return doubleField;
-        }
-
-        private Vector2IntField GenerateVector2IntField()
-        {
-            Vector2IntField vector2IntField = new() { value = _entry.value.vector2IntValue };
-            vector2IntField.RegisterValueChangedCallback(evt => _entry.value.vector2IntValue = evt.newValue);
-            return vector2IntField;
-        }
-
-        private Vector3IntField GenerateVector3IntField()
-        {
-            Vector3IntField vector3IntField = new() { value = _entry.value.vector3IntValue };
-            vector3IntField.RegisterValueChangedCallback(evt => _entry.value.vector3IntValue = evt.newValue);
-            return vector3IntField;
-        }
-
-        private RectIntField GenerateRectIntField()
-        {
-            RectIntField rectIntField = new() { value = _entry.value.rectIntValue };
-            rectIntField.RegisterValueChangedCallback(evt => _entry.value.rectIntValue = evt.newValue);
-            return rectIntField;
-        }
-
-        private Hash128Field GenerateHash128Field()
-        {
-            Hash128Field hash128Field = new() { value = _entry.value.hash128Value };
-            hash128Field.RegisterValueChangedCallback(evt => _entry.value.hash128Value = evt.newValue);
-            return hash128Field;
-        }
-
-        private Vector4Field GenerateVector4Field()
-        {
-            Vector4Field vector4Field = new() { value = _entry.value.vector4Value };
-            vector4Field.RegisterValueChangedCallback(evt => _entry.value.vector4Value = evt.newValue);
-            return vector4Field;
-        }
-
-        private MaskField GenerateMaskField()
-        {
-            MaskField maskField = new() { value = _entry.value.maskValue };
-            maskField.RegisterValueChangedCallback(evt => _entry.value.maskValue = evt.newValue);
-            return maskField;
-        }
-
-        private LayerField GenerateLayerField()
-        {
-            LayerField layerField = new() { value = _entry.value.layerValue };
-            layerField.RegisterValueChangedCallback(evt => _entry.value.layerValue = evt.newValue);
-            return layerField;
         }
 
     }

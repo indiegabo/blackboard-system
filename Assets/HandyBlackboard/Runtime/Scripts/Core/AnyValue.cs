@@ -15,6 +15,7 @@ namespace IndieGabo.HandyBlackboard
         public int intValue;
         public float floatValue;
         public Object objectValue;
+        public Transform transformValue;
         public Vector2 vector2Value;
         public Vector3 vector3Value;
         public Color colorValue = Color.black;
@@ -44,6 +45,7 @@ namespace IndieGabo.HandyBlackboard
                 BlackboardValueType.Int => AsInt<T>(intValue),
                 BlackboardValueType.Float => AsFloat<T>(floatValue),
                 BlackboardValueType.Object => AsObject<T>(objectValue),
+                BlackboardValueType.Transform => AsTransform<T>(transformValue),
                 BlackboardValueType.Vector2 => AsVector2<T>(vector2Value),
                 BlackboardValueType.Vector3 => AsVector3<T>(vector3Value),
                 BlackboardValueType.Color => AsColor<T>(colorValue),
@@ -71,6 +73,7 @@ namespace IndieGabo.HandyBlackboard
         T AsInt<T>(int value) => typeof(T) == typeof(int) && value is T correctType ? correctType : default;
         T AsFloat<T>(float value) => typeof(T) == typeof(float) && value is T correctType ? correctType : default;
         T AsObject<T>(Object value) => typeof(T) == typeof(Object) && value is T correctType ? correctType : default;
+        T AsTransform<T>(Transform value) => typeof(T) == typeof(Transform) && value is T correctType ? correctType : default;
         T AsVector2<T>(Vector2 value) => typeof(T) == typeof(Vector2) && value is T correctType ? correctType : default;
         T AsVector3<T>(Vector3 value) => typeof(T) == typeof(Vector3) && value is T correctType ? correctType : default;
         T AsColor<T>(Color value) => typeof(T) == typeof(Color) && value is T correctType ? correctType : default;

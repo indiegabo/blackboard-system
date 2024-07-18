@@ -12,10 +12,10 @@ namespace IndieGabo.HandyBlackboard
         public BlackboardValueType valueType;
         public AnyValue value = new();
 
-        public void SetValuesOnBlackboard(Blackboard blackboard)
+        public void SetValueOnBlackboard(Blackboard blackboard)
         {
             var key = blackboard.GetOrRegisterKey(keyName);
-            setValueDispatchTable[valueType](blackboard, key, value);
+            setValueDispatchTable[valueType].Invoke(blackboard, key, value);
         }
 
         static Dictionary<
@@ -29,6 +29,7 @@ namespace IndieGabo.HandyBlackboard
             { BlackboardValueType.Curve, (blackboard, key, value) => blackboard.SetValue(key, value.curveValue) },
             { BlackboardValueType.Float, (blackboard, key, value) => blackboard.SetValue(key, value.floatValue) },
             { BlackboardValueType.Object, (blackboard, key, value) => blackboard.SetValue(key, value.objectValue) },
+            { BlackboardValueType.Transform, (blackboard, key, value) => blackboard.SetValue(key, value.transformValue) },
             { BlackboardValueType.Vector2, (blackboard, key, value) => blackboard.SetValue(key, value.vector2Value) },
             { BlackboardValueType.Vector3, (blackboard, key, value) => blackboard.SetValue(key, value.vector3Value) },
             { BlackboardValueType.Color, (blackboard, key, value) => blackboard.SetValue(key, value.colorValue) },

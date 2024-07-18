@@ -16,7 +16,7 @@ namespace IndieGabo.HandyBlackboard
         {
             foreach (var dataEntry in _entries)
             {
-                dataEntry.SetValuesOnBlackboard(blackboard);
+                dataEntry.SetValueOnBlackboard(blackboard);
             }
         }
     }

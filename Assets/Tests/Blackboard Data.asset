@@ -22,6 +22,7 @@ MonoBehaviour:
       intValue: 12
       floatValue: 12.13
       objectValue: {fileID: 0}
+      transformValue: {fileID: 0}
       vector2Value: {x: 0, y: 0}
       vector3Value: {x: 0, y: 0, z: 0}
       colorValue: {r: 0, g: 0, b: 0, a: 1}
@@ -114,8 +115,9 @@ MonoBehaviour:
       boolValue: 0
       stringValue: 
       intValue: 0
-      floatValue: 14.55
+      floatValue: 14.555
       objectValue: {fileID: 0}
+      transformValue: {fileID: 0}
       vector2Value: {x: 0, y: 0}
       vector3Value: {x: 0, y: 0, z: 0}
       colorValue: {r: 0, g: 0, b: 0, a: 1}

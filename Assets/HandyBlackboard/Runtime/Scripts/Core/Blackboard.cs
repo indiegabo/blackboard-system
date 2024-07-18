@@ -10,21 +10,46 @@ namespace IndieGabo.HandyBlackboard
         protected Dictionary<string, BlackboardKey> _keyRegistry = new();
         protected Dictionary<BlackboardKey, object> _entries = new();
 
-        public void Debug()
+        public void DebugAll()
         {
-            foreach (var entry in _entries)
+            foreach (var pair in _entries)
             {
-                var entryType = entry.Value.GetType();
+                LogEntry(pair.Key, pair.Value);
+            }
+        }
 
-                if (entryType.IsGenericType && entryType.GetGenericTypeDefinition() == typeof(BlackboardEntry<>))
+        public void Debug(string keyName)
+        {
+            BlackboardKey key = GetOrRegisterKey(keyName);
+            Debug(key);
+        }
+
+        public void Debug(BlackboardKey key)
+        {
+            if (!_entries.TryGetValue(key, out object entry))
+            {
+                UnityEngine.Debug.LogWarning($"Trying to debug {key.Name} but it doesn't exist");
+                return;
+            }
+
+            LogEntry(key, entry);
+        }
+
+        private void LogEntry(BlackboardKey key, object entry)
+        {
+            var entryType = entry.GetType();
+
+            if (entryType.IsGenericType && entryType.GetGenericTypeDefinition() == typeof(BlackboardEntry<>))
+            {
+                var valueProperty = entryType.GetProperty("Value");
+
+                if (valueProperty == null)
                 {
-                    var valueProperty = entryType.GetProperty("Value");
-
-                    if (valueProperty == null) continue;
-
-                    var value = valueProperty.GetValue(entry.Value);
-                    UnityEngine.Debug.Log($"{entry.Key.Name}: {value}");
+                    return;
                 }
+
+                var value = valueProperty.GetValue(entry);
+                UnityEngine.Debug.Log($"Blackboard Entry <b>{key.Name}</b>: | {value} | {value.GetType()}");
             }
         }
 
@@ -42,12 +67,13 @@ namespace IndieGabo.HandyBlackboard
 
         public void SetValue<T>(BlackboardKey key, T value)
         {
-            _entries[key] = new BlackboardEntry<T>(key, value);
-        }
+            if (_entries.TryGetValue(key, out object entry) && entry is BlackboardEntry<T> castedEntry)
+            {
+                castedEntry.Value = value;
+                return;
+            }
 
-        public void RegisterEntry<T>(BlackboardKey key, BlackboardEntry<T> entry)
-        {
-            _entries[key] = entry;
+            _entries[key] = new BlackboardEntry<T>(key, value);
         }
 
         public BlackboardKey GetOrRegisterKey(string name)

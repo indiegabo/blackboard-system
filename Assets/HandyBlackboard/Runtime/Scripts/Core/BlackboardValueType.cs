@@ -7,6 +7,7 @@ namespace IndieGabo.HandyBlackboard
         Int,
         Float,
         Object,
+        Transform,
         Vector2,
         Vector3,
         Color,
